@@ -2,11 +2,7 @@
 $host="localhost";
 $user="root";
 $pass="";
-$db="student_db";
-
+$db="instagram_db";
 $conn=mysqli_connect($host,$user,$pass,$db);
-
-if(!$conn){
- die("Connection failed");
-}
+if(!$conn){ die("Database connection failed"); }
 ?>

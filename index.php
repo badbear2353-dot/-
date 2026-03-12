@@ -1,47 +1,31 @@
-<?php include 'config.php'; ?>
+<?php include 'config.php'; 
+$result=mysqli_query($conn,"SELECT * FROM posts ORDER BY id DESC"); ?>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Student CRUD System</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>Instagram CRUD</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="container mt-4">
-
-<h2>Student Management System</h2>
-<a href="add.php" class="btn btn-primary">Add Student</a>
-
-<table class="table table-bordered mt-3">
-<tr>
-<th>ID</th>
-<th>Student ID</th>
-<th>Name</th>
-<th>Midterm</th>
-<th>Total</th>
-<th>Action</th>
-</tr>
-
-<?php
-$sql="SELECT * FROM students";
-$result=mysqli_query($conn,$sql);
-
-while($row=mysqli_fetch_assoc($result)){
-?>
-
-<tr>
-<td><?= $row['id'] ?></td>
-<td><?= $row['student_id'] ?></td>
-<td><?= $row['first_name']." ".$row['last_name'] ?></td>
-<td><?= $row['midterm_score'] ?></td>
-<td><?= $row['total_score'] ?></td>
-<td>
-<a href="edit.php?id=<?= $row['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-<a href="delete.php?id=<?= $row['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
-</td>
-</tr>
-
+<body>
+<?php include 'navbar.php'; ?>
+<div class="container mt-4">
+<div class="row">
+<?php while($row=mysqli_fetch_assoc($result)){ ?>
+<div class="col-md-4">
+<div class="card mb-4">
+<img src="uploads/<?php echo $row['image']; ?>" class="card-img-top">
+<div class="card-body">
+<h5><?php echo $row['username']; ?></h5>
+<p><?php echo $row['caption']; ?></p>
+<p>📍 <?php echo $row['location']; ?></p>
+<p>❤️ <?php echo $row['likes']; ?></p>
+<a href="edit_post.php?id=<?php echo $row['id']; ?>" class="btn btn-warning">Edit</a>
+<a href="delete_post.php?id=<?php echo $row['id']; ?>" class="btn btn-danger">Delete</a>
+</div>
+</div>
+</div>
 <?php } ?>
-
-</table>
-
+</div>
+</div>
 </body>
 </html>
